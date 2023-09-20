@@ -146,3 +146,18 @@ The file system of the Nextcloud pod can be accessed with
 Local files can be copied into the running Nextcloud pod, e.g. the local files of an app:
 
     kubectl cp -n nextcloud <localfolder> <name of nextcloud pod>:/var/www/html/custom_apps
+
+## Running a specific version of Nextcloud
+The current helm charts will always deploy the lates version of Nextcloud. You can deploy a specific version by changing the `charts/all/Chart.yaml`:
+
+    - name: nextcloud
+        version: 3.4.1
+        repository: https://nextcloud.github.io/helm/
+        condition: feature.nextcloud
+
+E.g., setting the version to 3.4.1 would start a Nextcloud version 25.0.3. 
+
+    bash build-all-dependencies-with-helm.sh
+    helm upgrade -n nextcloud nxkube ./charts/all/ -i --values values.yaml
+
+**_NOTE:_** Any changes to your existing instance will be lost.
