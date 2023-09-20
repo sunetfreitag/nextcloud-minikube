@@ -1,4 +1,4 @@
-# Developing for RDS with minikube
+# Setting up a Nextcloud with minikube
 
 The aim of this documentation is to show how to deploy a Nextcloud instance in a
 minikube environment, and how to use it for development.
@@ -70,7 +70,7 @@ If this complains about missing Helm repos you may need to add them, e.g. if the
 
     $ helm repo add nextcloud https://nextcloud.github.io/helm/
 
-And finally we  deploy the RDS stuff to the newly created environment.
+And finally we  deploy the Nextcloud to the newly created environment.
 
     $ helm upgrade -n nextcloud nxkube ./charts/all/ -i --values values.yaml
 
@@ -96,10 +96,6 @@ After a while (a few minutes), the following pods should be up and running:
     nextcloud       redis-4                                    1/1     Running     1 (19m ago)   21m
     nextcloud       redis-5                                    1/1     Running     0             21m
     nextcloud       redis-helper-master-0                      1/1     Running     0             21m
-
-The problems with layer0-web and layer1-port-owncloud-test-address-de will get fixed once we set RDS as nextcloud & owncloud OAuth2 client next.
-Note that the last part of the pod names will vary from deployment to deployment.
-
 
 ## Setting up NextCloud
 
