@@ -106,6 +106,7 @@ so first, in `/etc/hosts`, we point that name to minikube's IP.
 
 ## Check the Nextcloud pod
 You can check the status of the nextcloud pod with
+
     kubectl -n nextcloud describe pod nextcloud-84f8f9cfd5-9cgzb
 
 In case everything works as expected, the output will contain something like
@@ -121,6 +122,7 @@ In case everything works as expected, the output will contain something like
 
 ## Nextcloud pod logs
 The logs of a pod can be followed by
+
     kubectl -n nextcloud logs nextcloud-84f8f9cfd5-9cgzb -f
 
 which will give you some traces and hints when you access Nextcloud
@@ -137,4 +139,10 @@ which will give you some traces and hints when you access Nextcloud
 
 ## Access the file system of the Nextcloud pod
 The file system of the Nextcloud pod can be accessed with
+
     kubectl exec -ti -n nextcloud nextcloud-84f8f9cfd5-9cgzb -- bash
+
+## Copy files into the Nextcloud pod
+Local files can be copied into the running Nextcloud pod, e.g. the local files of an app:
+
+    kubectl cp -n nextcloud <localfolder> <name of nextcloud pod>:/var/www/html/custom_apps
