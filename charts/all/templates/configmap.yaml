@@ -1,0 +1,32 @@
+# Do not edit anything here, except you know what you are doing.
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mservice
+  namespace: {{ .Release.Namespace  }}
+---
+# Global app settings
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: globalenvvar
+  namespace: {{ .Release.Namespace  }}
+data:
+  # Set this to DEBUG and restart your applications to get more informations in logs. Default: INFO
+  LOGLEVEL: {{ .Values.loglevel | quote }}
+  # If you set this to "False", SSL will not be verified in all https requests. Default: "True"
+  VERIFY_SSL: {{ .Values.verify_ssl | quote }}
+---
+# Proxy Settings
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: proxy
+  namespace: {{ .Release.Namespace  }}
+data:
+  HTTP_PROXY: {{ .Values.proxy.http_proxy | quote }}
+  HTTPS_PROXY: {{ .Values.proxy.https_proxy | quote }}
+  NO_PROXY: {{ .Values.proxy.no_proxy | quote }}
+  http_proxy: {{ .Values.proxy.http_proxy | quote }}
+  https_proxy: {{ .Values.proxy.https_proxy | quote }}
+  no_proxy: {{ .Values.proxy.no_proxy | quote }}

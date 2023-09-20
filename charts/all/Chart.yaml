@@ -1,0 +1,42 @@
+apiVersion: v2
+appVersion: ">0.2.5"
+description: A single chart for a local Nextcloud instance
+name: all
+version: 0.3.1
+home: https://www.nextcloud.com/
+type: application
+keywords:
+  - nextcloud
+  - minikube
+maintainers:
+  - email: freitag@sunet.se
+    name: Freitag
+sources:
+  - https://github.com/sunetfreitag/nextcloud-minikube
+icon: https://www.research-data-services.org/img/sciebo.png
+dependencies:
+  - name: jaeger
+    version: ^0.34.0
+    repository: file://../jaeger
+    condition: feature.jaeger
+    tags:
+      - monitoring
+  - name: redis-cluster
+    alias: redis
+    version: ^7.6.1
+    repository: file://../redis-cluster
+    condition: feature.redis
+    tags:
+      - storage
+  - name: redis
+    alias: redis-helper
+    version: ^16.10.1
+    repository: file://../redis
+    condition: feature.redis
+    tags:
+      - storage
+  - name: nextcloud
+    version: ^3.5.2
+    repository: https://nextcloud.github.io/helm/
+    condition: feature.nextcloud
+

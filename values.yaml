@@ -1,0 +1,43 @@
+global:
+  image:
+    tag: v0.2.5
+  namespace:
+    name: nextcloud
+  # Domains you want to use as input,
+  # this enables to use multiple owncloud instances with a single sciebo RDS
+  domains:
+    - name: nextcloud.localdomain.test # name needs to be exact the same as the second part after last @ in the cloudId
+      # When deploying The EFSS locally in the k8s environment, we need to acces it both from within
+      # the environment, from other pods, and from the outside, thus Address and INTERNAL_ADDRESS
+      INTERNAL_ADDRESS: http://nextcloud:8080
+      ADDRESS: https://nextcloud.localdomain.test
+      OAUTH_CLIENT_ID: dummy
+      OAUTH_CLIENT_SECRET: dummy
+      SUPPORT_EMAIL: mail@nextcloud.localdomain.test
+      MANUAL_URL: usermanual.nextcloud.localdomain.test
+loglevel: DEBUG
+# If you set this to "False", SSL will not be verified in all https requests. Default: "True"
+verify_ssl: False
+feature:
+  jaeger: false
+  nextcloud: true
+  owncloud: false
+
+nextcloud:
+  fullnameOverride: nextcloud
+  ingress:
+    enabled: true
+  nextcloud:
+    # Needs to be adjusted to the values at global.domains
+    host: nextcloud.localdomain.test
+    username: admin
+    password: CHANGEMETOSOMETHINGSECURE
+    extraEnv:
+      - name: OVERWRITEHOST
+        # Needs to be adjusted to the values at global.domains
+        value: nextcloud.localdomain.test
+      - name: OVERWRITEPROTOCOL
+        value: https
+      - name: NEXTCLOUD_TRUSTED_DOMAINS
+        # Needs to be adjusted to the values at global.domains
+        value: "nextcloud.localdomain.test nextcloud"

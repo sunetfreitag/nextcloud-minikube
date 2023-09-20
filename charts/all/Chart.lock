@@ -1,0 +1,15 @@
+dependencies:
+- name: jaeger
+  repository: file://../jaeger
+  version: 0.34.0
+- name: redis-cluster
+  repository: file://../redis-cluster
+  version: 7.6.4
+- name: redis
+  repository: file://../redis
+  version: 16.13.2
+- name: nextcloud
+  repository: https://nextcloud.github.io/helm/
+  version: 3.5.22
+digest: sha256:5f2554112fedc8fead778f091cc134ba97683711c978b037a1ddd93ca32b75ab
+generated: "2023-09-19T20:31:37.762448237Z"
